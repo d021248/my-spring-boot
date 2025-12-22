@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 5: HTTP Service Clients - Spring Boot 4.0</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        header h1 { font-size: 2.5em; margin-bottom: 10px; }
+        .badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin: 10px 5px;
+            background: white;
+            color: #00f2fe;
+        }
+        .badge-new { background: #48bb78; color: white; }
+        .content { padding: 40px; }
+        .section { margin-bottom: 40px; }
+        .section h2 {
+            color: #00f2fe;
+            border-bottom: 3px solid #00f2fe;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .endpoint {
+            background: #f7fafc;
+            border-left: 4px solid #00f2fe;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .method {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.85em;
+            margin-right: 10px;
+        }
+        .get { background: #48bb78; color: white; }
+        .post { background: #4299e1; color: white; }
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+        .code-block pre {
+            margin: 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        .info-box {
+            background: #bee3f8;
+            border-left: 4px solid #4299e1;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .client-card {
+            background: #f7fafc;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #e2e8f0;
+        }
+        .client-card h3 {
+            margin-bottom: 15px;
+        }
+        .restclient h3 { color: #4299e1; }
+        .webclient h3 { color: #48bb78; }
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .feature-card {
+            background: #f7fafc;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #e2e8f0;
+        }
+        .feature-card h3 {
+            color: #00f2fe;
+            margin-bottom: 10px;
+        }
+        footer {
+            background: #2d3748;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>⭐ Module 5: HTTP Service Clients</h1>
+            <p>ENHANCED in Spring Boot 4.0 - RestClient & WebClient</p>
+            <div style="margin-top: 20px;">
+                <span class="badge">Spring Boot 4.0</span>
+                <span class="badge badge-new">ENHANCED</span>
+                <span class="badge">Port 8085</span>
+                <span class="badge">Educational</span>
+            </div>
+        </header>
+
+        <div class="content">
+            <div class="section">
+                <h2>📚 About This Module</h2>
+                <p>Learn how to consume external REST APIs using Spring Boot 4.0's modern HTTP clients. This module demonstrates both synchronous (RestClient) and reactive (WebClient) approaches, along with resilience patterns using circuit breakers.</p>
+                
+                <div class="info-box">
+                    <strong>🎯 Key Learning:</strong> RestClient is NEW in Spring Boot 4.0, replacing the older RestTemplate with a modern, fluent API. WebClient remains the recommended choice for reactive applications.
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>🔄 HTTP Clients Comparison</h2>
+                <div class="comparison">
+                    <div class="client-card restclient">
+                        <h3>⚡ RestClient (NEW in 4.0)</h3>
+                        <p><strong>Type:</strong> Synchronous (blocking)</p>
+                        <p><strong>Best for:</strong></p>
+                        <ul>
+                            <li>Traditional web applications</li>
+                            <li>Simple API calls</li>
+                            <li>Easy to understand and test</li>
+                            <li>Replaces RestTemplate</li>
+                        </ul>
+                        <p style="margin-top: 10px;"><strong>Performance:</strong> Good for low-to-medium traffic</p>
+                    </div>
+                    <div class="client-card webclient">
+                        <h3>🌊 WebClient (Reactive)</h3>
+                        <p><strong>Type:</strong> Asynchronous (non-blocking)</p>
+                        <p><strong>Best for:</strong></p>
+                        <ul>
+                            <li>Reactive applications</li>
+                            <li>High-concurrency scenarios</li>
+                            <li>Streaming data</li>
+                            <li>Microservices communication</li>
+                        </ul>
+                        <p style="margin-top: 10px;"><strong>Performance:</strong> Excellent for high traffic</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>🔌 API Endpoints</h2>
+                <p>Base URL: <code>http://localhost:8085</code></p>
+                <p>All endpoints fetch data from <strong>JSONPlaceholder API</strong> (a fake REST API for testing)</p>
+
+                <h3 style="color: #4299e1; margin: 20px 0;">RestClient Endpoints (Synchronous)</h3>
+
+                <div class="endpoint">
+                    <span class="method get">GET</span>
+                    <code>/api/posts</code>
+                    <p><strong>Get all posts using RestClient</strong></p>
+                    <div class="code-block"><pre>curl http://localhost:8085/api/posts</pre></div>
+                </div>
+
+                <div class="endpoint">
+                    <span class="method get">GET</span>
+                    <code>/api/posts/{id}</code>
+                    <p><strong>Get post by ID using RestClient</strong></p>
+                    <div class="code-block"><pre>curl http://localhost:8085/api/posts/1</pre></div>
+                </div>
+
+                <div class="endpoint">
+                    <span class="method post">POST</span>
+                    <code>/api/posts</code>
+                    <p><strong>Create post using RestClient</strong></p>
+                    <div class="code-block"><pre>curl -X POST http://localhost:8085/api/posts \
+  -H "Content-Type: application/json" \
+  -d '{
+    "userId": 1,
+    "title": "My New Post",
+    "body": "This is the content"
+  }'</pre></div>
+                </div>
+
+                <h3 style="color: #48bb78; margin: 20px 0;">WebClient Endpoints (Reactive)</h3>
+
+                <div class="endpoint">
+                    <span class="method get">GET</span>
+                    <code>/api/posts/reactive</code>
+                    <p><strong>Get all posts using WebClient (reactive)</strong></p>
+                    <div class="code-block"><pre>curl http://localhost:8085/api/posts/reactive</pre></div>
+                </div>
+
+                <div class="endpoint">
+                    <span class="method get">GET</span>
+                    <code>/api/posts/reactive/{id}</code>
+                    <p><strong>Get post by ID using WebClient (reactive)</strong></p>
+                    <div class="code-block"><pre>curl http://localhost:8085/api/posts/reactive/1</pre></div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>🧪 How to Test</h2>
+                <ol>
+                    <li><strong>Test RestClient:</strong> Try GET /api/posts to fetch all posts synchronously</li>
+                    <li><strong>Test WebClient:</strong> Try GET /api/posts/reactive to see reactive approach</li>
+                    <li><strong>Compare:</strong> Notice both return same data but different implementations</li>
+                    <li><strong>Create Data:</strong> POST to /api/posts to create a new post</li>
+                    <li><strong>Individual Items:</strong> GET specific posts by ID with both clients</li>
+                </ol>
+            </div>
+
+            <div class="section">
+                <h2>🛡️ Resilience Patterns</h2>
+                <p>This module includes <strong>Resilience4j</strong> circuit breaker configuration:</p>
+                <ul>
+                    <li>Prevents cascading failures</li>
+                    <li>Automatic retry mechanisms</li>
+                    <li>Fallback responses when services are down</li>
+                    <li>Configurable failure thresholds</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>💡 Ideas to Extend</h2>
+                <div class="feature-list">
+                    <div class="feature-card">
+                        <h3>🔄 Retry Logic</h3>
+                        <p>Add automatic retries with exponential backoff</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>⏱️ Timeout Handling</h3>
+                        <p>Configure connection and read timeouts</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🔐 Authentication</h3>
+                        <p>Add OAuth2 or API key authentication</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>📊 Metrics</h3>
+                        <p>Track API call success/failure rates</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>💾 Caching</h3>
+                        <p>Cache responses to reduce API calls</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🔀 Load Balancing</h3>
+                        <p>Distribute requests across multiple servers</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>📖 Key Concepts Demonstrated</h2>
+                <ul>
+                    <li><strong>RestClient:</strong> Modern replacement for RestTemplate (NEW in Spring Boot 4.0)</li>
+                    <li><strong>WebClient:</strong> Reactive, non-blocking HTTP client</li>
+                    <li><strong>Fluent API:</strong> Clean, readable builder pattern</li>
+                    <li><strong>Circuit Breaker:</strong> Resilience4j for fault tolerance</li>
+                    <li><strong>Java Records:</strong> PostDTO as immutable data carrier</li>
+                    <li><strong>ParameterizedTypeReference:</strong> Generic type handling for collections</li>
+                    <li><strong>Dependency Injection:</strong> Builder beans configured in application context</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>🎓 When to Use Which Client?</h2>
+                <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+                    <tr style="background: #f7fafc;">
+                        <th style="padding: 12px; text-align: left; border-bottom: 2px solid #e2e8f0;">Scenario</th>
+                        <th style="padding: 12px; text-align: left; border-bottom: 2px solid #e2e8f0;">Recommended</th>
+                        <th style="padding: 12px; text-align: left; border-bottom: 2px solid #e2e8f0;">Why</th>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px; border-bottom: 1px solid #e2e8f0;">Simple API calls</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #e2e8f0;">RestClient</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #e2e8f0;">Easier to understand, synchronous flow</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px; border-bottom: 1px solid #e2e8f0;">High-traffic microservices</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #e2e8f0;">WebClient</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #e2e8f0;">Non-blocking, better resource utilization</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px; border-bottom: 1px solid #e2e8f0;">Reactive applications</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #e2e8f0;">WebClient</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #e2e8f0;">Integrates with reactive streams</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px; border-bottom: 1px solid #e2e8f0;">Traditional Spring MVC</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #e2e8f0;">RestClient</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #e2e8f0;">Simpler model, easier debugging</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="info-box" style="background: #feebc8; border-color: #ed8936;">
+                <strong>⚠️ Educational Project:</strong> This uses JSONPlaceholder (a fake API) for testing. In production, you'd integrate with real services and add proper error handling, authentication, and monitoring.
+            </div>
+        </div>
+
+        <footer>
+            <p><strong>Spring Boot 4.0 Educational Project</strong></p>
+            <p>Module 5 of 9 | Port 8085 | HTTP Service Clients (ENHANCED in 4.0)</p>
+        </footer>
+    </div>
+</body>
+</html>

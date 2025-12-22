@@ -33,12 +33,20 @@ public class Application {
             System.out.println("=".repeat(70));
             System.out.println("📊 Observability & Monitoring Demo");
             System.out.println("=".repeat(70));
-            System.out.println("🔹 Actuator Endpoints:");
-            System.out.println("   http://localhost:8084/actuator");
-            System.out.println("   http://localhost:8084/actuator/health");
-            System.out.println("   http://localhost:8084/actuator/metrics");
-            System.out.println("   http://localhost:8084/actuator/info");
+            System.out.println("🌐 Landing Page: http://localhost:8086");
+            System.out.println("   📖 Complete observability documentation");
             System.out.println("=".repeat(70));
+            System.out.println("\n🔹 Observability Features:");
+            System.out.println("   • Metrics - Micrometer for performance data");
+            System.out.println("   • Tracing - Distributed request tracking");
+            System.out.println("   • Health - Application health checks");
+            System.out.println("   • Logging - Structured logging patterns");
+            System.out.println("\n🔹 Actuator Endpoints:");
+            System.out.println("   http://localhost:8086/actuator");
+            System.out.println("   http://localhost:8086/actuator/health");
+            System.out.println("   http://localhost:8086/actuator/metrics");
+            System.out.println("   http://localhost:8086/actuator/info");
+            System.out.println("\n" + "=".repeat(70));
         };
     }
 }

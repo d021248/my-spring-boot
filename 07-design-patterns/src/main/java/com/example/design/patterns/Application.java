@@ -28,12 +28,17 @@ public class Application {
             System.out.println("=".repeat(70));
             System.out.println("�� Design Patterns with Spring");
             System.out.println("=".repeat(70));
-            System.out.println("✓ Factory Pattern - Spring BeanFactory");
-            System.out.println("✓ Strategy Pattern - Service implementations");
-            System.out.println("✓ Observer Pattern - ApplicationEvent listeners");
-            System.out.println("✓ Decorator Pattern - Spring AOP");
-            System.out.println("✓ Singleton Pattern - Default bean scope");
+            System.out.println("🌐 Landing Page: http://localhost:8087");
+            System.out.println("   📖 Complete design patterns documentation");
             System.out.println("=".repeat(70));
+            System.out.println("\n🔹 Gang of Four Patterns Demonstrated:");
+            System.out.println("   • Factory Pattern - Spring BeanFactory");
+            System.out.println("   • Strategy Pattern - Service implementations");
+            System.out.println("   • Observer Pattern - ApplicationEvent listeners");
+            System.out.println("   • Proxy Pattern - Spring AOP");
+            System.out.println("   • Template Method - Spring Templates");
+            System.out.println("   • Singleton Pattern - Default bean scope");
+            System.out.println("\n" + "=".repeat(70));
         };
     }
 }

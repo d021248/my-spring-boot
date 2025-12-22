@@ -24,6 +24,20 @@ public class JavaModernFeaturesApp implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
+        System.out.println("=".repeat(70));
+        System.out.println("☕ NEW IN SPRING BOOT 4.0: Java Modern Features");
+        System.out.println("=".repeat(70));
+        System.out.println("🌐 Landing Page: http://localhost:8081");
+        System.out.println("   📖 Complete Java 21+ features documentation");
+        System.out.println("=".repeat(70));
+        System.out.println("\n🔹 Modern Java Features Demonstrated:");
+        System.out.println("   • Records - Immutable data carriers (76% less code)");
+        System.out.println("   • Pattern Matching - Smart instanceof without casts");
+        System.out.println("   • Sealed Classes - Controlled inheritance hierarchies");
+        System.out.println("   • Virtual Threads - Lightweight concurrency");
+        System.out.println("   • Text Blocks - Multi-line strings");
+        System.out.println("   • Switch Expressions - Enhanced pattern matching");
+        System.out.println("\n" + "=".repeat(70));
         System.out.println("\n=== Java Modern Features Demo ===\n");
         
         demonstrateRecords();

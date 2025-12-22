@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 7: Design Patterns - Spring Boot 4.0</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        header {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        header h1 { font-size: 2.5em; margin-bottom: 10px; }
+        .badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin: 10px 5px;
+            background: white;
+            color: #11998e;
+        }
+        .badge-new { background: #48bb78; color: white; }
+        .content { padding: 40px; }
+        .section { margin-bottom: 40px; }
+        .section h2 {
+            color: #11998e;
+            border-bottom: 3px solid #11998e;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .feature-card {
+            background: #f7fafc;
+            padding: 25px;
+            border-radius: 8px;
+            border: 2px solid #e2e8f0;
+            transition: transform 0.2s;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: #11998e;
+        }
+        .feature-card h3 {
+            color: #11998e;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+        .code-block pre {
+            margin: 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        .info-box {
+            background: #e6fffa;
+            border-left: 4px solid #11998e;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .emoji-large { font-size: 2em; margin-bottom: 10px; }
+        footer {
+            background: #2d3748;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎨 Module 7: Design Patterns</h1>
+            <p>Gang of Four Patterns in Spring Boot</p>
+            <div style="margin-top: 20px;">
+                <span class="badge">Spring Boot 4.0</span>
+                <span class="badge badge-new">GoF Patterns</span>
+                <span class="badge">Port 8087</span>
+                <span class="badge">Educational</span>
+            </div>
+        </header>
+
+        <div class="content">
+            <div class="section">
+                <h2>📚 About This Module</h2>
+                <p>Learn classic Gang of Four design patterns implemented in Spring Boot. Understand how Spring Framework itself uses these patterns and how to apply them in your applications.</p>
+                
+                <div class="info-box">
+                    <strong>🎯 Timeless Wisdom:</strong> These patterns have stood the test of time. Spring Boot makes many of them even easier to implement!
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>✨ Design Patterns Demonstrated</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="emoji-large">🏭</div>
+                        <h3>Factory Pattern</h3>
+                        <p><strong>Creational - Object creation</strong></p>
+                        <p>Create objects without specifying exact classes. Spring's BeanFactory is a perfect example.</p>
+                        <div class="code-block"><pre>@Component
+public class NotificationFactory {
+    public Notification create(String type)
+}</pre></div>
+                        <p style="margin-top: 10px;"><strong>Use:</strong> Flexible object creation</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="emoji-large">🔌</div>
+                        <h3>Strategy Pattern</h3>
+                        <p><strong>Behavioral - Algorithm selection</strong></p>
+                        <p>Define family of algorithms, encapsulate each, make them interchangeable at runtime.</p>
+                        <div class="code-block"><pre>interface PaymentStrategy {
+    void pay(BigDecimal amount);
+}</pre></div>
+                        <p style="margin-top: 10px;"><strong>Spring:</strong> Used in dependency injection</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="emoji-large">👀</div>
+                        <h3>Observer Pattern</h3>
+                        <p><strong>Behavioral - Event notification</strong></p>
+                        <p>One-to-many dependency. When one object changes state, all dependents are notified.</p>
+                        <div class="code-block"><pre>@EventListener
+public void handleOrder(
+    OrderEvent event)</pre></div>
+                        <p style="margin-top: 10px;"><strong>Spring:</strong> ApplicationEvent framework</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="emoji-large">🎭</div>
+                        <h3>Proxy Pattern</h3>
+                        <p><strong>Structural - Controlled access</strong></p>
+                        <p>Provide surrogate/placeholder for another object. Spring AOP uses this heavily.</p>
+                        <div class="code-block"><pre>@Transactional
+@Cacheable
+public User findById(Long id)</pre></div>
+                        <p style="margin-top: 10px;"><strong>Spring:</strong> AOP, @Transactional, @Cacheable</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="emoji-large">⚙️</div>
+                        <h3>Template Method</h3>
+                        <p><strong>Behavioral - Algorithm skeleton</strong></p>
+                        <p>Define skeleton of algorithm, let subclasses override specific steps.</p>
+                        <div class="code-block"><pre>abstract class DataProcessor {
+    final void process() {
+        load(); transform(); save();
+    }
+}</pre></div>
+                        <p style="margin-top: 10px;"><strong>Spring:</strong> JdbcTemplate, RestTemplate</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="emoji-large">📦</div>
+                        <h3>Singleton Pattern</h3>
+                        <p><strong>Creational - Single instance</strong></p>
+                        <p>Ensure class has only one instance. Spring beans are singletons by default.</p>
+                        <div class="code-block"><pre>@Component // Singleton by default
+@Scope("singleton")
+public class ConfigService</pre></div>
+                        <p style="margin-top: 10px;"><strong>Spring:</strong> Default bean scope</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>🎓 Pattern Categories</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h3>🏗️ Creational Patterns</h3>
+                        <p><strong>Object creation mechanisms</strong></p>
+                        <ul style="margin-top: 10px; line-height: 1.8;">
+                            <li>✅ Factory Method</li>
+                            <li>✅ Abstract Factory</li>
+                            <li>✅ Builder</li>
+                            <li>✅ Singleton</li>
+                            <li>✅ Prototype</li>
+                        </ul>
+                        <p style="margin-top: 10px;"><strong>Goal:</strong> Flexible object creation</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🔧 Structural Patterns</h3>
+                        <p><strong>Object composition</strong></p>
+                        <ul style="margin-top: 10px; line-height: 1.8;">
+                            <li>✅ Adapter</li>
+                            <li>✅ Decorator</li>
+                            <li>✅ Proxy</li>
+                            <li>✅ Facade</li>
+                            <li>✅ Composite</li>
+                        </ul>
+                        <p style="margin-top: 10px;"><strong>Goal:</strong> Flexible structure</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🎬 Behavioral Patterns</h3>
+                        <p><strong>Communication between objects</strong></p>
+                        <ul style="margin-top: 10px; line-height: 1.8;">
+                            <li>✅ Strategy</li>
+                            <li>✅ Observer</li>
+                            <li>✅ Command</li>
+                            <li>✅ Template Method</li>
+                            <li>✅ Iterator</li>
+                        </ul>
+                        <p style="margin-top: 10px;"><strong>Goal:</strong> Flexible algorithms</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>🌸 Spring Framework Patterns</h2>
+                <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+                    <tr style="background: #f7fafc;">
+                        <th style="padding: 12px; text-align: left; border-bottom: 2px solid #e2e8f0;">Pattern</th>
+                        <th style="padding: 12px; text-align: left; border-bottom: 2px solid #e2e8f0;">Spring Usage</th>
+                        <th style="padding: 12px; text-align: left; border-bottom: 2px solid #e2e8f0;">Example</th>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px; border-bottom: 1px solid #e2e8f0;"><strong>Factory</strong></td>
+                        <td style="padding: 12px; border-bottom: 1px solid #e2e8f0;">BeanFactory, ApplicationContext</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #e2e8f0;"><code>@Bean</code> methods</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px; border-bottom: 1px solid #e2e8f0;"><strong>Singleton</strong></td>
+                        <td style="padding: 12px; border-bottom: 1px solid #e2e8f0;">Default bean scope</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #e2e8f0;"><code>@Component</code></td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px; border-bottom: 1px solid #e2e8f0;"><strong>Proxy</strong></td>
+                        <td style="padding: 12px; border-bottom: 1px solid #e2e8f0;">AOP, @Transactional</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #e2e8f0;"><code>@Transactional</code></td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px; border-bottom: 1px solid #e2e8f0;"><strong>Template Method</strong></td>
+                        <td style="padding: 12px; border-bottom: 1px solid #e2e8f0;">JdbcTemplate, RestTemplate</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #e2e8f0;"><code>jdbcTemplate.query()</code></td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px; border-bottom: 1px solid #e2e8f0;"><strong>Strategy</strong></td>
+                        <td style="padding: 12px; border-bottom: 1px solid #e2e8f0;">Dependency Injection</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #e2e8f0;"><code>@Autowired</code></td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px; border-bottom: 1px solid #e2e8f0;"><strong>Observer</strong></td>
+                        <td style="padding: 12px; border-bottom: 1px solid #e2e8f0;">ApplicationEvent</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #e2e8f0;"><code>@EventListener</code></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="section">
+                <h2>🧪 How to Explore</h2>
+                <ol style="font-size: 1.1em; line-height: 2;">
+                    <li>Check console logs - pattern demonstrations run at startup</li>
+                    <li>Review pattern implementations in service classes</li>
+                    <li>See how Spring uses these patterns internally</li>
+                    <li>Compare traditional vs Spring-based implementations</li>
+                    <li>Experiment with different pattern combinations</li>
+                </ol>
+            </div>
+
+            <div class="section">
+                <h2>💡 Ideas to Extend</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h3>🏗️ Builder Pattern</h3>
+                        <p>Implement fluent API builder for complex objects</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🔄 Adapter Pattern</h3>
+                        <p>Adapt legacy interfaces to modern APIs</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🎭 Decorator Pattern</h3>
+                        <p>Add behavior to objects dynamically</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🎯 Command Pattern</h3>
+                        <p>Encapsulate requests as objects</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🔗 Chain of Responsibility</h3>
+                        <p>Create processing pipeline</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🏛️ Facade Pattern</h3>
+                        <p>Simplify complex subsystem interfaces</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>📖 Key Concepts</h2>
+                <ul style="font-size: 1.1em; line-height: 2;">
+                    <li><strong>Gang of Four:</strong> 23 classic design patterns from 1994 book</li>
+                    <li><strong>SOLID Principles:</strong> Foundation for good design patterns</li>
+                    <li><strong>Dependency Injection:</strong> Spring's core pattern (Strategy + Factory)</li>
+                    <li><strong>AOP:</strong> Aspect-Oriented Programming uses Proxy pattern</li>
+                    <li><strong>Template Method:</strong> Spring's *Template classes</li>
+                    <li><strong>Event-Driven:</strong> Observer pattern in Spring</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>🎓 When to Use Patterns</h2>
+                <ol style="font-size: 1.1em; line-height: 2;">
+                    <li><strong>Factory:</strong> When object creation logic is complex</li>
+                    <li><strong>Strategy:</strong> When you have multiple algorithms for same task</li>
+                    <li><strong>Observer:</strong> When changes in one object affect others</li>
+                    <li><strong>Singleton:</strong> When exactly one instance is needed (use Spring beans!)</li>
+                    <li><strong>Template Method:</strong> When algorithm structure is fixed but steps vary</li>
+                    <li><strong>Proxy:</strong> When you need to control access or add behavior</li>
+                </ol>
+            </div>
+
+            <div class="info-box" style="background: #feebc8; border-color: #ed8936;">
+                <strong>⚠️ Educational Project:</strong> This module demonstrates classic design patterns and shows how Spring Boot implements and simplifies many of them. Patterns are tools - use them when they solve real problems, not just for the sake of using patterns.
+            </div>
+        </div>
+
+        <footer>
+            <p><strong>Spring Boot 4.0 Educational Project</strong></p>
+            <p>Module 7 of 9 | Port 8087 | Design Patterns</p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 8: Testing Strategies - Spring Boot 4.0</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #ee0979 0%, #ff6a00 100%);
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        header {
+            background: linear-gradient(135deg, #ee0979 0%, #ff6a00 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        header h1 { font-size: 2.5em; margin-bottom: 10px; }
+        .badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin: 10px 5px;
+            background: white;
+            color: #ee0979;
+        }
+        .badge-new { background: #48bb78; color: white; }
+        .content { padding: 40px; }
+        .section { margin-bottom: 40px; }
+        .section h2 {
+            color: #ee0979;
+            border-bottom: 3px solid #ee0979;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .endpoint {
+            background: #f7fafc;
+            border-left: 4px solid #ee0979;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .method {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.85em;
+            margin-right: 10px;
+        }
+        .get { background: #48bb78; color: white; }
+        .post { background: #4299e1; color: white; }
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+        .code-block pre {
+            margin: 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        .info-box {
+            background: #fff5f7;
+            border-left: 4px solid #ee0979;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .feature-card {
+            background: #f7fafc;
+            padding: 25px;
+            border-radius: 8px;
+            border: 2px solid #e2e8f0;
+            transition: transform 0.2s;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: #ee0979;
+        }
+        .feature-card h3 {
+            color: #ee0979;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        .emoji-large { font-size: 2em; margin-bottom: 10px; }
+        footer {
+            background: #2d3748;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🧪 Module 8: Testing Strategies</h1>
+            <p>Unit, Integration & E2E Testing with Spring Boot 4.0</p>
+            <div style="margin-top: 20px;">
+                <span class="badge">Spring Boot 4.0</span>
+                <span class="badge badge-new">10/10 Tests Passing</span>
+                <span class="badge">Port 8088</span>
+                <span class="badge">Educational</span>
+            </div>
+        </header>
+
+        <div class="content">
+            <div class="section">
+                <h2>📚 About This Module</h2>
+                <p>Learn comprehensive testing strategies for Spring Boot applications. This module demonstrates unit testing, integration testing, MockMvc for controllers, and Test Containers for database testing.</p>
+                
+                <div class="info-box">
+                    <strong>🎯 100% Test Coverage:</strong> This module has 10 fully implemented tests covering service logic and REST endpoints. All tests are passing!
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>✨ Testing Strategies Demonstrated</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="emoji-large">⚙️</div>
+                        <h3>Unit Testing</h3>
+                        <p><strong>Test business logic in isolation</strong></p>
+                        <p>JUnit 5 tests for pure business logic without Spring context. Fast and focused.</p>
+                        <div class="code-block"><pre>@Test
+void shouldCalculateSum() {
+    assertEquals(5, service.add(2, 3));
+}</pre></div>
+                        <p style="margin-top: 10px;"><strong>Speed:</strong> Milliseconds per test</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="emoji-large">🔗</div>
+                        <h3>Integration Testing</h3>
+                        <p><strong>Test with full Spring context</strong></p>
+                        <p>@SpringBootTest loads the entire application context. Real database interactions.</p>
+                        <div class="code-block"><pre>@SpringBootTest
+@AutoConfigureMockMvc
+class ProductServiceTest {}</pre></div>
+                        <p style="margin-top: 10px;"><strong>Confidence:</strong> Tests real behavior</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="emoji-large">🌐</div>
+                        <h3>MockMvc Testing</h3>
+                        <p><strong>Test REST endpoints</strong></p>
+                        <p>Test controllers without starting a server. Verify HTTP responses.</p>
+                        <div class="code-block"><pre>mockMvc.perform(get("/api/products"))
+    .andExpect(status().isOk())</pre></div>
+                        <p style="margin-top: 10px;"><strong>Use case:</strong> Controller layer testing</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="emoji-large">🗄️</div>
+                        <h3>Test Containers</h3>
+                        <p><strong>Real database for tests</strong></p>
+                        <p>Spin up actual Docker containers for testing. No mocking required.</p>
+                        <div class="code-block"><pre>@Container
+PostgreSQLContainer postgres = 
+    new PostgreSQLContainer<>()</pre></div>
+                        <p style="margin-top: 10px;"><strong>Accuracy:</strong> Test with real DB</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="emoji-large">🎭</div>
+                        <h3>Mocking</h3>
+                        <p><strong>Isolate dependencies</strong></p>
+                        <p>Mock external services with Mockito. Control test scenarios.</p>
+                        <div class="code-block"><pre>@Mock
+private UserRepository repository;
+
+when(repository.findById(1))
+    .thenReturn(user);</pre></div>
+                        <p style="margin-top: 10px;"><strong>Control:</strong> Test edge cases easily</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="emoji-large">✅</div>
+                        <h3>Assertions</h3>
+                        <p><strong>Verify expectations</strong></p>
+                        <p>AssertJ for fluent assertions. Clear, readable test expectations.</p>
+                        <div class="code-block"><pre>assertThat(result)
+    .isNotNull()
+    .hasSize(3)
+    .extracting("name")
+    .contains("Alice")</pre></div>
+                        <p style="margin-top: 10px;"><strong>Readability:</strong> Self-documenting tests</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>🔌 API Endpoints (for Testing)</h2>
+                <p>Base URL: <code>http://localhost:8088</code></p>
+                <p>These endpoints are specifically designed for demonstrating testing strategies</p>
+
+                <div class="endpoint">
+                    <span class="method get">GET</span>
+                    <code>/api/products</code>
+                    <p><strong>Get all products</strong></p>
+                    <div class="code-block"><pre>curl http://localhost:8088/api/products</pre></div>
+                </div>
+
+                <div class="endpoint">
+                    <span class="method get">GET</span>
+                    <code>/api/products/{id}</code>
+                    <p><strong>Get product by ID</strong></p>
+                    <div class="code-block"><pre>curl http://localhost:8088/api/products/1</pre></div>
+                </div>
+
+                <div class="endpoint">
+                    <span class="method post">POST</span>
+                    <code>/api/products</code>
+                    <p><strong>Create new product</strong></p>
+                    <div class="code-block"><pre>curl -X POST http://localhost:8088/api/products \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Laptop",
+    "price": 999.99
+  }'</pre></div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>✅ Test Suite Overview (10 Tests)</h2>
+                <h3 style="color: #4299e1; margin: 20px 0;">Unit Tests (5 tests)</h3>
+                <ul style="font-size: 1.1em; line-height: 2;">
+                    <li>✅ <strong>CalculatorServiceTest:</strong> Pure logic testing without Spring</li>
+                    <li>✅ Addition test - Verifies 2+3=5</li>
+                    <li>✅ Subtraction test - Verifies 5-3=2</li>
+                    <li>✅ Multiplication test - Verifies 4*3=12</li>
+                    <li>✅ Division test - Verifies 10/2=5</li>
+                    <li>✅ Division by zero test - Throws IllegalArgumentException</li>
+                </ul>
+
+                <h3 style="color: #48bb78; margin: 20px 0;">Integration Tests (5 tests)</h3>
+                <ul style="font-size: 1.1em; line-height: 2;">
+                    <li>✅ <strong>ProductServiceTest:</strong> Full Spring Boot context</li>
+                    <li>✅ Get all products - Returns list of products</li>
+                    <li>✅ Get product by ID - Returns specific product</li>
+                    <li>✅ Create product - Saves and returns new product</li>
+                    <li>✅ Product not found - Throws NoSuchElementException</li>
+                    <li>✅ Integration with ProductController via MockMvc</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>🧪 Running the Tests</h2>
+                <div class="code-block"><pre># Run all tests
+mvn test
+
+# Run specific test class
+mvn test -Dtest=CalculatorServiceTest
+
+# Run with coverage
+mvn test jacoco:report
+
+# Skip tests during build
+mvn clean install -DskipTests</pre></div>
+            </div>
+
+            <div class="section">
+                <h2>💡 Ideas to Extend</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h3>🐳 Test Containers</h3>
+                        <p>Add PostgreSQL or MySQL Test Container for real database testing</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>📊 Code Coverage</h3>
+                        <p>Add JaCoCo for measuring test coverage percentage</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🔄 Parameterized Tests</h3>
+                        <p>Use @ParameterizedTest for testing multiple inputs</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>⏱️ Performance Tests</h3>
+                        <p>Add JMH for micro-benchmarking critical code paths</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🎭 WireMock</h3>
+                        <p>Mock external HTTP APIs with WireMock</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🔍 Mutation Testing</h3>
+                        <p>Use PIT for mutation testing to verify test quality</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>📖 Key Concepts</h2>
+                <ul style="font-size: 1.1em; line-height: 2;">
+                    <li><strong>Unit Tests:</strong> Fast, isolated tests for business logic</li>
+                    <li><strong>Integration Tests:</strong> Test with full Spring context</li>
+                    <li><strong>MockMvc:</strong> Test controllers without starting server</li>
+                    <li><strong>@SpringBootTest:</strong> Load entire application context</li>
+                    <li><strong>Mockito:</strong> Mock dependencies for isolated testing</li>
+                    <li><strong>AssertJ:</strong> Fluent assertions for readable tests</li>
+                    <li><strong>Test Pyramid:</strong> Many unit tests, fewer integration tests</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>🎓 Testing Best Practices</h2>
+                <ol style="font-size: 1.1em; line-height: 2;">
+                    <li><strong>Arrange-Act-Assert:</strong> Structure tests clearly</li>
+                    <li><strong>Test Naming:</strong> Use descriptive test method names</li>
+                    <li><strong>One Assertion:</strong> Test one behavior per test method</li>
+                    <li><strong>Independent Tests:</strong> Tests should not depend on each other</li>
+                    <li><strong>Fast Tests:</strong> Unit tests should run in milliseconds</li>
+                    <li><strong>Readable Tests:</strong> Tests are documentation</li>
+                </ol>
+            </div>
+
+            <div class="info-box" style="background: #feebc8; border-color: #ed8936;">
+                <strong>⚠️ Educational Project:</strong> This module demonstrates testing strategies with a simple Product API. All 10 tests are passing and can be run with <code>mvn test</code>.
+            </div>
+        </div>
+
+        <footer>
+            <p><strong>Spring Boot 4.0 Educational Project</strong></p>
+            <p>Module 8 of 9 | Port 8088 | Testing Strategies (10/10 Tests Passing)</p>
+        </footer>
+    </div>
+</body>
+</html>

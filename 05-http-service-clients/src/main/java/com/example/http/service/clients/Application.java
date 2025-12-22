@@ -41,6 +41,9 @@ public class Application {
             System.out.println("=".repeat(70));
             System.out.println("⭐ ENHANCED IN SPRING BOOT 4.0: HTTP Service Clients");
             System.out.println("=".repeat(70));
+            System.out.println("🌐 Landing Page: http://localhost:8085");
+            System.out.println("   📖 Complete HTTP clients documentation with examples");
+            System.out.println("=".repeat(70));
             
             // Demonstrate RestClient
             System.out.println("\n🔹 RestClient Demo (Synchronous):");
@@ -50,6 +53,13 @@ public class Application {
             } catch (Exception e) {
                 System.out.println("   ✗ Error: " + e.getMessage());
             }
+            
+            System.out.println("\n🔹 API Endpoints:");
+            System.out.println("   GET  http://localhost:8085/api/posts");
+            System.out.println("   GET  http://localhost:8085/api/posts/{id}");
+            System.out.println("   POST http://localhost:8085/api/posts");
+            System.out.println("   GET  http://localhost:8085/api/posts/reactive (WebClient)");
+            System.out.println("   GET  http://localhost:8085/api/posts/reactive/{id}");
             
             System.out.println("\n🔹 Key Improvements in Spring Boot 4.0:");
             System.out.println("   • RestClient replaces RestTemplate with modern fluent API");

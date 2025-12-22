@@ -40,18 +40,20 @@ public class SpringBootAdvancedApp {
             System.out.println("=".repeat(70));
             System.out.println("🚀 Spring Boot Advanced Features Demo");
             System.out.println("=".repeat(70));
-            System.out.println("🔐 JWT Security enabled");
-            System.out.println("💾 Caffeine Caching enabled");
-            System.out.println("⚡ Async Processing enabled");
-            System.out.println("📡 Event-Driven Architecture enabled");
-            System.out.println("🌊 WebFlux Reactive enabled");
+            System.out.println("🌐 Landing Page: http://localhost:8083");
+            System.out.println("   📖 Complete advanced features documentation");
             System.out.println("=".repeat(70));
+            System.out.println("\n🔹 Enterprise Features Enabled:");
+            System.out.println("   • JWT Security - Token-based authentication");
+            System.out.println("   • Caffeine Caching - High-performance caching");
+            System.out.println("   • Async Processing - Non-blocking operations");
+            System.out.println("   • Event-Driven - Application events");
+            System.out.println("   • WebFlux Reactive - Reactive programming");
+            System.out.println("\n" + "=".repeat(70));
             
             // Demo JWT
             String token = jwtUtil.generateToken("demo-user");
             System.out.println("Demo JWT Token: " + token.substring(0, Math.min(50, token.length())) + "...");
-            System.out.println("=".repeat(70));
-            System.out.println("Server running on: http://localhost:8081");
             System.out.println("=".repeat(70));
         };
     }
