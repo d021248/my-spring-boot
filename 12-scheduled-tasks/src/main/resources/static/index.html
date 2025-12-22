@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 12: Scheduled Tasks - Educational Demo</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        header {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        header h1 { font-size: 2.5em; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.2); }
+        header p { font-size: 1.2em; opacity: 0.9; }
+        .content { padding: 40px; }
+        .section { margin-bottom: 40px; }
+        .section h2 {
+            color: #fa709a;
+            border-bottom: 3px solid #fa709a;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        .badge-primary { background: #fa709a; color: white; }
+        .badge-success { background: #48bb78; color: white; }
+        .badge-info { background: #4299e1; color: white; }
+        .endpoint {
+            background: #f7fafc;
+            border-left: 4px solid #fa709a;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .endpoint .method {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.85em;
+            margin-right: 10px;
+        }
+        .get { background: #48bb78; color: white; }
+        .post { background: #4299e1; color: white; }
+        .delete { background: #f56565; color: white; }
+        .endpoint code {
+            background: #edf2f7;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+        .code-block pre {
+            margin: 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        .info-box {
+            background: #bee3f8;
+            border-left: 4px solid #4299e1;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .cron-box {
+            background: #feebc8;
+            border-left: 4px solid #ed8936;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .feature-card {
+            background: #f7fafc;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #e2e8f0;
+        }
+        .feature-card h3 {
+            color: #fa709a;
+            margin-bottom: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table th, table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        table th {
+            background: #f7fafc;
+            color: #fa709a;
+            font-weight: bold;
+        }
+        footer {
+            background: #2d3748;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #fa709a;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 5px;
+            transition: background 0.3s;
+        }
+        .btn:hover { background: #e85d87; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>⏰ Module 12: Scheduled Tasks</h1>
+            <p>Task Scheduling with @Scheduled, Cron Expressions, and Dynamic Scheduling</p>
+            <div style="margin-top: 20px;">
+                <span class="badge badge-primary">Spring Boot 4.0</span>
+                <span class="badge badge-success">Java 21</span>
+                <span class="badge badge-info">@Scheduled</span>
+            </div>
+        </header>
+
+        <div class="content">
+            <div class="section">
+                <h2>📚 About This Module</h2>
+                <p>Learn how to schedule periodic tasks in Spring Boot using @Scheduled annotation, cron expressions, and dynamic task scheduling. Perfect for background jobs, cleanup tasks, reports, and monitoring.</p>
+                
+                <div class="feature-list">
+                    <div class="feature-card">
+                        <h3>⏰ Core Features</h3>
+                        <ul>
+                            <li>@Scheduled annotation</li>
+                            <li>Cron expressions</li>
+                            <li>Fixed rate/delay</li>
+                            <li>Dynamic scheduling</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🎯 Learning Goals</h3>
+                        <ul>
+                            <li>Periodic task execution</li>
+                            <li>Cron syntax mastery</li>
+                            <li>Schedule management</li>
+                            <li>Task coordination</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <h3>⚙️ Scheduling Types</h3>
+                        <ul>
+                            <li>Fixed Rate</li>
+                            <li>Fixed Delay</li>
+                            <li>Cron Expressions</li>
+                            <li>One-time Tasks</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>🔌 REST API Endpoints</h2>
+                <p>Base URL: <code>http://localhost:8092</code></p>
+
+                <div class="endpoint">
+                    <span class="method get">GET</span>
+                    <code>/api/scheduler/status</code>
+                    <p><strong>View execution counts of all scheduled tasks</strong></p>
+                    <div class="code-block"><pre>curl http://localhost:8092/api/scheduler/status</pre></div>
+                </div>
+
+                <div class="endpoint">
+                    <span class="method post">POST</span>
+                    <code>/api/scheduler/dynamic/fixed-delay</code>
+                    <p><strong>Schedule a dynamic task with fixed delay</strong></p>
+                    <div class="code-block"><pre>curl -X POST "http://localhost:8092/api/scheduler/dynamic/fixed-delay?taskName=MyTask&delaySeconds=10"</pre></div>
+                </div>
+
+                <div class="endpoint">
+                    <span class="method post">POST</span>
+                    <code>/api/scheduler/dynamic/cron</code>
+                    <p><strong>Schedule a dynamic task with cron expression</strong></p>
+                    <div class="code-block"><pre>curl -X POST "http://localhost:8092/api/scheduler/dynamic/cron?taskName=HourlyTask&cronExpression=0+0+*+*+*+*"</pre></div>
+                </div>
+
+                <div class="endpoint">
+                    <span class="method post">POST</span>
+                    <code>/api/scheduler/dynamic/one-time</code>
+                    <p><strong>Schedule a one-time task</strong></p>
+                    <div class="code-block"><pre>curl -X POST "http://localhost:8092/api/scheduler/dynamic/one-time?taskName=DelayedTask&delaySeconds=30"</pre></div>
+                </div>
+
+                <div class="endpoint">
+                    <span class="method get">GET</span>
+                    <code>/api/scheduler/dynamic</code>
+                    <p><strong>List all dynamic tasks</strong></p>
+                    <div class="code-block"><pre>curl http://localhost:8092/api/scheduler/dynamic</pre></div>
+                </div>
+
+                <div class="endpoint">
+                    <span class="method delete">DELETE</span>
+                    <code>/api/scheduler/dynamic/{taskName}</code>
+                    <p><strong>Cancel a dynamic task</strong></p>
+                    <div class="code-block"><pre>curl -X DELETE http://localhost:8092/api/scheduler/dynamic/MyTask</pre></div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>📅 Cron Expression Guide</h2>
+                <p>Cron format: <code>second minute hour day month weekday</code></p>
+                <table>
+                    <tr>
+                        <th>Expression</th>
+                        <th>Meaning</th>
+                        <th>Use Case</th>
+                    </tr>
+                    <tr>
+                        <td><code>0 * * * * *</code></td>
+                        <td>Every minute</td>
+                        <td>Status checks</td>
+                    </tr>
+                    <tr>
+                        <td><code>0 0 * * * *</code></td>
+                        <td>Every hour</td>
+                        <td>Hourly reports</td>
+                    </tr>
+                    <tr>
+                        <td><code>0 0 9 * * MON-FRI</code></td>
+                        <td>Weekdays at 9 AM</td>
+                        <td>Daily reports</td>
+                    </tr>
+                    <tr>
+                        <td><code>0 0/15 * * * *</code></td>
+                        <td>Every 15 minutes</td>
+                        <td>Monitoring</td>
+                    </tr>
+                    <tr>
+                        <td><code>0 0 0 * * *</code></td>
+                        <td>Daily at midnight</td>
+                        <td>Cleanup tasks</td>
+                    </tr>
+                    <tr>
+                        <td><code>0 0 12 1 * *</code></td>
+                        <td>1st of month at noon</td>
+                        <td>Monthly reports</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="section">
+                <h2>⚙️ Scheduling Types Explained</h2>
+                
+                <h3>1. Fixed Rate</h3>
+                <div class="code-block"><pre>@Scheduled(fixedRate = 5000, initialDelay = 2000)
+public void fixedRateTask() {
+    // Runs every 5 seconds, regardless of previous execution
+}</pre></div>
+                <p>✅ Use when: Task execution time is predictable and short</p>
+
+                <h3>2. Fixed Delay</h3>
+                <div class="code-block"><pre>@Scheduled(fixedDelay = 3000, initialDelay = 1000)
+public void fixedDelayTask() {
+    // Waits 3 seconds after previous execution completes
+}</pre></div>
+                <p>✅ Use when: You want guaranteed gap between executions</p>
+
+                <h3>3. Cron Expression</h3>
+                <div class="code-block"><pre>@Scheduled(cron = "0 0 * * * *")  // Every hour
+public void cronTask() {
+    // Runs at specific times
+}</pre></div>
+                <p>✅ Use when: Need complex schedules (daily at 9 AM, weekdays only, etc.)</p>
+            </div>
+
+            <div class="section">
+                <h2>🔧 Conditional Scheduling</h2>
+                <div class="code-block"><pre>@Scheduled(cron = "0 0 2 * * *")  // Daily at 2 AM
+@ConditionalOnProperty(
+    name = "app.scheduling.cleanup-enabled", 
+    havingValue = "true"
+)
+public void dailyCleanupTask() {
+    // Only runs when property is enabled
+}</pre></div>
+                <p>Enable in application.properties:</p>
+                <div class="code-block"><pre>app.scheduling.cleanup-enabled=true</pre></div>
+            </div>
+
+            <div class="section">
+                <h2>🧪 How to Test</h2>
+                <ol>
+                    <li><strong>Start the app</strong> and watch logs for scheduled tasks</li>
+                    <li><strong>Check status:</strong> GET /api/scheduler/status</li>
+                    <li><strong>Schedule dynamic task:</strong> POST /api/scheduler/dynamic/fixed-delay</li>
+                    <li><strong>View dynamic tasks:</strong> GET /api/scheduler/dynamic</li>
+                    <li><strong>Cancel task:</strong> DELETE /api/scheduler/dynamic/{taskName}</li>
+                    <li><strong>Watch logs:</strong> See tasks executing with their schedules</li>
+                </ol>
+            </div>
+
+            <div class="cron-box">
+                <strong>💡 Cron Expression Builder:</strong> Use <a href="https://crontab.guru/" target="_blank">crontab.guru</a> or <a href="https://www.freeformatter.com/cron-expression-generator-quartz.html" target="_blank">Quartz Cron Generator</a> to build and test cron expressions!
+            </div>
+
+            <div class="section">
+                <h2>📊 Built-in Scheduled Tasks</h2>
+                <table>
+                    <tr>
+                        <th>Task</th>
+                        <th>Schedule</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td>Fixed Rate Task</td>
+                        <td>Every 5 seconds</td>
+                        <td>Demonstrates fixed rate execution</td>
+                    </tr>
+                    <tr>
+                        <td>Fixed Delay Task</td>
+                        <td>3s after completion</td>
+                        <td>Demonstrates fixed delay</td>
+                    </tr>
+                    <tr>
+                        <td>Cron Task</td>
+                        <td>Every minute</td>
+                        <td>Demonstrates cron scheduling</td>
+                    </tr>
+                    <tr>
+                        <td>Business Hours</td>
+                        <td>9-5 PM, weekdays</td>
+                        <td>Conditional, business hours only</td>
+                    </tr>
+                    <tr>
+                        <td>End of Day</td>
+                        <td>11:59 PM daily</td>
+                        <td>Conditional, end of day processing</td>
+                    </tr>
+                    <tr>
+                        <td>Monthly Task</td>
+                        <td>1st of month, 9 AM</td>
+                        <td>Conditional, monthly reports</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="section">
+                <h2>💡 Ideas to Extend</h2>
+                <div class="feature-list">
+                    <div class="feature-card">
+                        <h3>📊 Task History</h3>
+                        <p>Store execution history in database</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🔔 Notifications</h3>
+                        <p>Alert on task failures via email/Slack</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>⏸️ Pause/Resume</h3>
+                        <p>Add ability to pause/resume tasks</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🎯 Task Priority</h3>
+                        <p>Implement priority queue for tasks</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🔄 Retry Logic</h3>
+                        <p>Auto-retry failed scheduled tasks</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>📈 Metrics</h3>
+                        <p>Track execution time and success rates</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>📖 Key Concepts Demonstrated</h2>
+                <ul>
+                    <li><strong>@Scheduled:</strong> Declarative task scheduling</li>
+                    <li><strong>@EnableScheduling:</strong> Enable scheduling support</li>
+                    <li><strong>Fixed Rate:</strong> Execute at regular intervals</li>
+                    <li><strong>Fixed Delay:</strong> Wait between executions</li>
+                    <li><strong>Cron Expressions:</strong> Complex time-based schedules</li>
+                    <li><strong>TaskScheduler:</strong> Programmatic scheduling</li>
+                    <li><strong>@ConditionalOnProperty:</strong> Conditional scheduling</li>
+                    <li><strong>ScheduledFuture:</strong> Control task lifecycle</li>
+                </ul>
+            </div>
+
+            <div class="info-box">
+                <strong>⚠️ Production Tip:</strong> In distributed systems, use a distributed scheduler (like Quartz with database locking or ShedLock) to prevent multiple instances from running the same task simultaneously.
+            </div>
+        </div>
+
+        <footer>
+            <p><strong>Spring Boot 4.0 Educational Project</strong></p>
+            <p>Module 12 of 12+ | Port 8092 | Java 21 | Scheduled Tasks</p>
+            <div style="margin-top: 20px;">
+                <a href="/api/scheduler/status" class="btn">Task Status</a>
+                <a href="/actuator/metrics" class="btn">Metrics</a>
+                <a href="/actuator/health" class="btn">Health Check</a>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

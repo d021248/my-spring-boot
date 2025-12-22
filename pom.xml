@@ -37,6 +37,9 @@
         <module>07-design-patterns</module>
         <module>08-testing-strategies</module>
         <module>09-best-practices</module>
+        <module>10-spring-profiles</module>
+        <module>11-async-programming</module>
+        <module>12-scheduled-tasks</module>
     </modules>
 
     <dependencies>

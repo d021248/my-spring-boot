@@ -13,6 +13,9 @@ Every module now has a beautiful HTML landing page accessible at http://localhos
 - Module 7: 8085 (Design Patterns)
 - Module 8: 8086 (Testing)
 - Module 9: 8087 (Best Practices)
+- Module 10: 8090 (Spring Profiles) ✅ DONE
+- Module 11: 8091 (Async Programming) ✅ DONE
+- Module 12: 8092 (Scheduled Tasks) ✅ DONE
 
 ## ✅ Module 2 - COMPLETE
 - Landing page: http://localhost:8080
