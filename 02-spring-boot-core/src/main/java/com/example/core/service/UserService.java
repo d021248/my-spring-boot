@@ -4,8 +4,8 @@ import com.example.core.dto.CreateUserRequest;
 import com.example.core.dto.UserResponse;
 import com.example.core.model.User;
 import com.example.core.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,11 +13,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
-@Slf4j
 public class UserService {
     
+    private static final Logger log = LoggerFactory.getLogger(UserService.class);
+    
     private final UserRepository userRepository;
+    
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
     
     @Transactional
     public UserResponse createUser(CreateUserRequest request) {
