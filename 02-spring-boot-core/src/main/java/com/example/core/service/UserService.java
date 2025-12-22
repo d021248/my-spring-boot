@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -54,7 +53,7 @@ public class UserService {
         log.info("Fetching all users");
         return userRepository.findAll().stream()
                 .map(this::mapToResponse)
-                .collect(Collectors.toList());
+                .toList();  // Java 16+ - simpler than Collectors.toList()
     }
     
     @Transactional(readOnly = true)
@@ -62,7 +61,7 @@ public class UserService {
         log.info("Searching users by name: {}", name);
         return userRepository.findByNameContainingIgnoreCase(name).stream()
                 .map(this::mapToResponse)
-                .collect(Collectors.toList());
+                .toList();  // Java 16+ - simpler than Collectors.toList()
     }
     
     @Transactional

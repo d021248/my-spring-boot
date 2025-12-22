@@ -27,10 +27,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, Object>> handleValidationExceptions(MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();
-        ex.getBindingResult().getAllErrors().forEach((error) -> {
-            String fieldName = ((FieldError) error).getField();
-            String errorMessage = error.getDefaultMessage();
-            errors.put(fieldName, errorMessage);
+        // Pattern matching for instanceof - Java 16+ feature
+        ex.getBindingResult().getAllErrors().forEach(error -> {
+            if (error instanceof FieldError fieldError) {  // Pattern matching avoids explicit cast
+                errors.put(fieldError.getField(), fieldError.getDefaultMessage());
+            }
         });
         
         Map<String, Object> response = new HashMap<>();
