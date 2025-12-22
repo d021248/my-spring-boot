@@ -1,6 +1,7 @@
 package com.example.http.service.clients.client;
 
 import com.example.http.service.clients.dto.PostDTO;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 
@@ -27,7 +28,7 @@ public class RestClientService {
         return restClient.get()
                 .uri("/posts")
                 .retrieve()
-                .body(List.class);
+                .body(new ParameterizedTypeReference<List<PostDTO>>() {});
     }
     
     public PostDTO getPostById(Long id) {

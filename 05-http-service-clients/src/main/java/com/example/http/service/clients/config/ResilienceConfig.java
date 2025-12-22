@@ -4,11 +4,23 @@ import io.github.resilience4j.circuitbreaker.CircuitBreaker;
 import io.github.resilience4j.circuitbreaker.CircuitBreakerConfig;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.client.RestClient;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.time.Duration;
 
 @Configuration
 public class ResilienceConfig {
+    
+    @Bean
+    public RestClient.Builder restClientBuilder() {
+        return RestClient.builder();
+    }
+    
+    @Bean
+    public WebClient.Builder webClientBuilder() {
+        return WebClient.builder();
+    }
     
     @Bean
     public CircuitBreaker circuitBreaker() {
