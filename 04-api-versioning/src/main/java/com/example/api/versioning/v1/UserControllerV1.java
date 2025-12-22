@@ -31,7 +31,12 @@ public class UserControllerV1 {
     
     @PostMapping
     public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO user) {
-        user.setId(System.currentTimeMillis());
-        return ResponseEntity.ok(user);
+        // Records are immutable - create new instance with generated ID
+        UserDTO created = new UserDTO(
+                System.currentTimeMillis(),
+                user.name(),
+                user.email()
+        );
+        return ResponseEntity.ok(created);
     }
 }

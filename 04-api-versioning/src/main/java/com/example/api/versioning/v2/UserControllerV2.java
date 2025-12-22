@@ -36,8 +36,15 @@ public class UserControllerV2 {
     
     @PostMapping
     public ResponseEntity<UserDTOV2> createUser(@RequestBody UserDTOV2 user) {
-        user.setId(System.currentTimeMillis());
-        return ResponseEntity.ok(user);
+        // Records are immutable - create new instance with generated ID
+        UserDTOV2 created = new UserDTOV2(
+                System.currentTimeMillis(),
+                user.firstName(),
+                user.lastName(),
+                user.email(),
+                user.phone()
+        );
+        return ResponseEntity.ok(created);
     }
     
     @GetMapping("/search")

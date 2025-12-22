@@ -46,7 +46,7 @@ public class Application {
             System.out.println("\n🔹 RestClient Demo (Synchronous):");
             try {
                 PostDTO post = restClientService.getPostById(1L);
-                System.out.println("   ✓ Fetched Post: " + post.getTitle());
+                System.out.println("   ✓ Fetched Post: " + post.title());
             } catch (Exception e) {
                 System.out.println("   ✗ Error: " + e.getMessage());
             }
