@@ -43,50 +43,6 @@
         <module>13-advanced-jpa</module>
         <module>14-transaction-management</module>
         <module>15-multiple-datasources</module>
-        <module>16-spring-data-rest</module>
-        <module>17-database-migrations</module>
-        <module>18-nosql-databases</module>
-        <module>19-rabbitmq-messaging</module>
-        <module>20-kafka-integration</module>
-        <module>21-websocket-communication</module>
-        <module>22-spring-integration</module>
-        <module>23-spring-security-basics</module>
-        <module>24-oauth2-keycloak</module>
-        <module>25-ldap-authentication</module>
-        <module>26-actuator-monitoring</module>
-        <module>27-logging-strategies</module>
-        <module>28-error-handling</module>
-        <module>29-validation-advanced</module>
-        <module>30-content-negotiation</module>
-        <module>31-file-upload-download</module>
-        <module>32-graphql-api</module>
-        <module>33-hateoas</module>
-        <module>34-api-documentation</module>
-        <module>35-cors-configuration</module>
-        <module>36-docker-containerization</module>
-        <module>37-kubernetes-deployment</module>
-        <module>38-spring-boot-admin</module>
-        <module>39-distributed-tracing</module>
-        <module>40-custom-starter</module>
-        <module>41-aop-aspects</module>
-        <module>42-batch-processing</module>
-        <module>43-reactive-webflux</module>
-        <module>44-graalvm-native</module>
-        <module>45-thymeleaf-templates</module>
-        <module>46-form-validation</module>
-        <module>47-soap-webservices</module>
-        <module>48-jasypt-encryption</module>
-        <module>49-resilience-patterns</module>
-        <module>50-event-driven-architecture</module>
-        <module>51-caching-strategies</module>
-        <module>52-rate-limiting</module>
-        <module>53-multitenancy</module>
-        <module>54-audit-logging</module>
-        <module>55-internationalization</module>
-        <module>56-spring-cloud-config</module>
-        <module>57-service-discovery</module>
-        <module>58-circuit-breaker</module>
-        <module>59-distributed-locking</module>
     </modules>
 
     <dependencies>
