@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Advanced JPA - Spring Boot 4.0</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            body {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                line-height: 1.6;
+                color: #333;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                min-height: 100vh;
+            }
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 20px;
+            }
+            header {
+                background: rgba(255, 255, 255, 0.95);
+                padding: 30px;
+                border-radius: 15px;
+                margin-bottom: 30px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            }
+            h1 {
+                color: #2c3e50;
+                font-size: 2.5em;
+                margin-bottom: 10px;
+            }
+            .subtitle {
+                color: #7f8c8d;
+                font-size: 1.2em;
+            }
+            .card {
+                background: rgba(255, 255, 255, 0.95);
+                padding: 25px;
+                border-radius: 12px;
+                margin-bottom: 20px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            }
+            .card h2 {
+                color: #3498db;
+                margin-bottom: 15px;
+                border-bottom: 3px solid #3498db;
+                padding-bottom: 10px;
+            }
+            .features {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 15px;
+            }
+            .feature {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            }
+            .feature h3 {
+                margin-bottom: 10px;
+                font-size: 1.2em;
+            }
+            .code-block {
+                background: #2c3e50;
+                color: #ecf0f1;
+                padding: 15px;
+                border-radius: 8px;
+                overflow-x: auto;
+                margin: 10px 0;
+                font-family: 'Courier New', monospace;
+            }
+            .endpoint {
+                background: #e8f4f8;
+                padding: 15px;
+                margin: 10px 0;
+                border-left: 4px solid #3498db;
+                border-radius: 4px;
+            }
+            .badge {
+                display: inline-block;
+                padding: 5px 12px;
+                border-radius: 20px;
+                font-size: 0.9em;
+                margin: 5px 5px 5px 0;
+                background: #3498db;
+                color: white;
+            }
+            .links {
+                display: flex;
+                gap: 15px;
+                flex-wrap: wrap;
+                margin-top: 20px;
+            }
+            .btn {
+                padding: 12px 24px;
+                border-radius: 8px;
+                text-decoration: none;
+                color: white;
+                font-weight: bold;
+                transition: transform 0.2s;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            }
+            .btn:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+            }
+            .btn-primary { background: #3498db; }
+            .btn-success { background: #2ecc71; }
+            .btn-info { background: #9b59b6; }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <header>
+                <h1>🚀 Module 13: Advanced JPA</h1>
+                <p class="subtitle">Master advanced JPA features including specifications, projections, and entity graphs</p>
+                <div class="links">
+                    <a href="http://localhost:8093/actuator/health" class="btn btn-success">Health Check</a>
+                    <a href="http://localhost:8093/actuator" class="btn btn-info">Actuator</a>
+                </div>
+            </header>
+
+            <div class="card">
+                <h2>✨ Key Features</h2>
+                <div class="features">
+                    <div class="feature">
+                        <h3>🔍 Specifications</h3>
+                        <p>Dynamic query building</p>
+                    </div>
+                    <div class="feature">
+                        <h3>📊 Projections</h3>
+                        <p>Interface & class-based DTOs</p>
+                    </div>
+                    <div class="feature">
+                        <h3>📈 Entity Graphs</h3>
+                        <p>Optimized fetching strategies</p>
+                    </div>
+                    <div class="feature">
+                        <h3>🗂️ Named Queries</h3>
+                        <p>Reusable query definitions</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>🔗 API Endpoints</h2>
+                <div class="endpoint">
+                    <strong>GET</strong> /api/products/search?name=laptop&minPrice=100&maxPrice=2000
+                    <p>Search products using JPA Specifications</p>
+                </div>
+                <div class="endpoint">
+                    <strong>GET</strong> /api/products/dto
+                    <p>Get all products as DTOs (projections)</p>
+                </div>
+                <div class="endpoint">
+                    <strong>GET</strong> /api/products/with-category?price=500
+                    <p>Get expensive products with category using Entity Graphs</p>
+                </div>
+                <div class="endpoint">
+                    <strong>GET</strong> /api/products/low-stock?threshold=10
+                    <p>Get low stock products using native query</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>🏃 Quick Start</h2>
+                <div class="code-block">
+cd 13-advanced-jpa
+mvn spring-boot:run
+                </div>
+                <p style="margin-top: 15px;">Then open: <strong>http://localhost:8093</strong></p>
+            </div>
+        </div>
+    </body>
+    </html>
