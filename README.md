@@ -1,6 +1,6 @@
 # Spring Boot 4.0 Educational Project 🚀
 
-A comprehensive educational project showcasing **Spring Boot 4.0**, **Spring Framework 7**, and **Java 21+** modern features and best practices.
+A comprehensive educational project showcasing **Spring Boot 4.0.1**, **Spring Framework 7**, and **Java 21+** modern features and best practices.
 
 ## 🌟 What's New in Spring Boot 4.0
 
@@ -111,6 +111,32 @@ mvn spring-boot:run
 cd 05-http-service-clients
 mvn spring-boot:run
 ```
+
+### Bruno Collection
+
+A developer-focused collection of example requests for every module is available in `bruno-collection/` — each module folder contains a `requests.md` with endpoint examples and `curl` snippets to exercise the demo APIs.
+
+### Module 15 — Multiple DataSources (demo)
+
+Module 15 demonstrates header-based datasource routing and a small JPA example using two H2 datasources (primary + replica). It includes a `Product` entity, repository, service, and controller endpoints.
+
+Run the module locally:
+
+```bash
+cd 15-multiple-datasources
+# build and run
+mvn -DskipTests clean package
+java -jar target/multiple-datasources-1.0.0-SNAPSHOT.jar
+
+# or use Spring Boot run
+mvn spring-boot:run
+```
+
+Sample endpoints:
+
+- GET  http://localhost:8095/api/demo
+- GET  http://localhost:8095/api/products
+- POST http://localhost:8095/api/products  (use header `X-Tenant: replica` to target the replica datasource)
 
 ## 📖 Learning Path
 

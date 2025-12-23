@@ -15,6 +15,7 @@ h1{font-size:3em;margin-bottom:20px}
 <h1>🚀 Module 15</h1>
 <h2>Multiple DataSources</h2>
 <p>Port: 8095</p>
+<p style="font-size:0.9em;opacity:0.9;margin-top:10px">Running on Spring Boot <strong>4.0.1</strong></p>
 <div style="margin:30px 0">
 <a href="/api/demo" class="btn">Demo API</a>
 <a href="/api/info" class="btn">Info</a>
@@ -22,6 +23,16 @@ h1{font-size:3em;margin-bottom:20px}
 </div>
 <div class="endpoint"><strong>GET</strong> /api/demo - Get demo data</div>
 <div class="endpoint"><strong>GET</strong> /api/info - Get module info</div>
+</div>
+<div class="container" style="margin-top:20px">
+<h3>Developer Notes</h3>
+<p>Header-based datasource routing demo. Use header <code>X-Tenant: replica</code> to route to the replica datasource.</p>
+<h4>Run locally</h4>
+<pre style="text-align:left;background:rgba(0,0,0,0.15);padding:10px;border-radius:6px;color:#fff">cd 15-multiple-datasources
+mvn -DskipTests clean package
+java -jar target/multiple-datasources-1.0.0-SNAPSHOT.jar
+# or: mvn spring-boot:run
+</pre>
 </div>
 </body>
 </html>
